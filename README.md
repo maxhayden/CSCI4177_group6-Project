@@ -1,1 +1,1 @@
-# CSCI4177 Group 6 Project maxs commit
+# CSCI4177 Group 6 Project
