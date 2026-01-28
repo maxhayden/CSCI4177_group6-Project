@@ -6,7 +6,7 @@
 ## Team Members & Branches
 
 - Krishna Nanda Kumar: https://github.com/maxhayden/CSCI4177_group6-Project/tree/krishna_tej
-- Patric Manoharan: https://github.com/maxhayden/CSCI4177_group6-Project/tree/
+- Patric Manoharan: https://github.com/maxhayden/CSCI4177_group6-Project/tree/patric_mano
 - Max Hayden: https://github.com/maxhayden/CSCI4177_group6-Project/tree/max_hayden
 - Shiyu Huang: https://github.com/maxhayden/CSCI4177_group6-Project/tree/shiyu_huang
 - Zijian Wang: https://github.com/maxhayden/CSCI4177_group6-Project/tree/zijian_wang
