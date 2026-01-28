@@ -10,3 +10,4 @@
 - Max Hayden: https://github.com/maxhayden/CSCI4177_group6-Project/tree/max_hayden
 - Shiyu Huang: https://github.com/maxhayden/CSCI4177_group6-Project/tree/shiyu_huang
 - Zijian Wang: https://github.com/maxhayden/CSCI4177_group6-Project/tree/zijian_wang
+- Umar Fazeer: https://github.com/maxhayden/CSCI4177_group6-Project/tree/umar_fazeer
