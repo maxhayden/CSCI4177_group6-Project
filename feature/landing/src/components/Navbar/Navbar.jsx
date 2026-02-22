@@ -45,12 +45,6 @@ export default function Navbar() {
     }
   }
 
-  const regularLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/faq', label: 'FAQ' },
-    { to: '/contact', label: 'Contact' },
-  ]
-
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="banner">
       <nav className="navbar__inner container" aria-label="Primary navigation">
@@ -62,23 +56,25 @@ export default function Navbar() {
 
         {/* Desktop nav links */}
         <ul className="navbar__links" role="list">
-          {regularLinks.map((link) => (
-            <li key={link.to}>
-              <NavLink
-                to={link.to}
-                end={link.to === '/'}
-                className={({ isActive }) =>
-                  `navbar__link ${isActive ? 'navbar__link--active' : ''}`
-                }
-              >
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
+          <li>
+            <NavLink to="/" end className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+              Home
+            </NavLink>
+          </li>
           <li>
             <a href="#features" className="navbar__link" onClick={scrollToFeatures}>
               Features
             </a>
+          </li>
+          <li>
+            <NavLink to="/faq" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+              FAQ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+              Contact
+            </NavLink>
           </li>
         </ul>
 
@@ -111,24 +107,25 @@ export default function Navbar() {
         aria-hidden={!menuOpen}
       >
         <ul className="navbar__mobile-links" role="list">
-          {regularLinks.map((link) => (
-            <li key={link.to}>
-              <NavLink
-                to={link.to}
-                end={link.to === '/'}
-                className={({ isActive }) =>
-                  `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`
-                }
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
+          <li>
+            <NavLink to="/" end className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+              Home
+            </NavLink>
+          </li>
           <li>
             <a href="#features" className="navbar__mobile-link" onClick={scrollToFeatures}>
               Features
             </a>
+          </li>
+          <li>
+            <NavLink to="/faq" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+              FAQ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+              Contact
+            </NavLink>
           </li>
         </ul>
         <div className="navbar__mobile-actions">
