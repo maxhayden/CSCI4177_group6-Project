@@ -31,6 +31,16 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  const scrollToTop = (e) => {
+    setMenuOpen(false)
+    if (location.pathname !== '/') {
+      navigate('/')
+    } else {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   const scrollToFeatures = (e) => {
     e.preventDefault()
     setMenuOpen(false)
@@ -49,7 +59,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="banner">
       <nav className="navbar__inner container" aria-label="Primary navigation">
         {/* Logo */}
-        <Link to="/" className="navbar__logo" aria-label="Game Deck — home">
+        <Link to="/" className="navbar__logo" aria-label="Game Deck — home" onClick={scrollToTop}>
           <FaGamepad className="navbar__logo-icon" aria-hidden="true" />
           <span className="navbar__logo-text">Game Deck</span>
         </Link>
