@@ -19,7 +19,7 @@ const FAQ_DATA = [
     color: 'purple',
     items: [
       {
-        q: 'How do I create a GameTime account?',
+        q: 'How do I create a Game Deck account?',
         a: 'Creating an account is free and takes under a minute. Click "Get Started Free" on the landing page, enter your email and a password, and you are ready to go. No credit card required.',
       },
       {
@@ -32,7 +32,7 @@ const FAQ_DATA = [
       },
       {
         q: 'Is my personal information shared with third parties?',
-        a: 'No. We do not sell or share your personal data with third parties. We only use your data to provide and improve the GameTime service. See our Privacy Policy for full details.',
+        a: 'No. We do not sell or share your personal data with third parties. We only use your data to provide and improve the Game Deck service. See our Privacy Policy for full details.',
       },
       {
         q: 'Can I change my username or email?',
@@ -73,8 +73,8 @@ const FAQ_DATA = [
     color: 'purple',
     items: [
       {
-        q: 'How can GameTime help me manage my gaming time better?',
-        a: 'GameTime gives you a clear view of how much time you spend gaming each day, week, and month. Combined with completion time estimates, you can plan which games fit into your schedule before you even start.',
+        q: 'How can Game Deck help me manage my gaming time better?',
+        a: 'Game Deck gives you a clear view of how much time you spend gaming each day, week, and month. Combined with completion time estimates, you can plan which games fit into your schedule before you even start.',
       },
       {
         q: 'Can I set time goals or limits for gaming?',
@@ -85,8 +85,8 @@ const FAQ_DATA = [
         a: 'Yes. Your Stats page shows daily, weekly, and monthly playtime breakdowns, your most-played games, average session length, and your gaming streak.',
       },
       {
-        q: 'Does GameTime work across different gaming platforms?',
-        a: 'GameTime is platform-agnostic — you can log sessions for games on PC, PlayStation, Xbox, Nintendo Switch, or any other platform. Just search for the game and start logging.',
+        q: 'Does Game Deck work across different gaming platforms?',
+        a: 'Game Deck is platform-agnostic — you can log sessions for games on PC, PlayStation, Xbox, Nintendo Switch, or any other platform. Just search for the game and start logging.',
       },
     ],
   },
@@ -113,7 +113,7 @@ const FAQ_DATA = [
       },
       {
         q: 'How does the weekly top-rated games feature work?',
-        a: 'Every week, GameTime tallies reviews and ratings submitted by the community and surfaces the highest-rated games of the past 7 days. It is a great way to discover what the community is loving right now.',
+        a: 'Every week, Game Deck tallies reviews and ratings submitted by the community and surfaces the highest-rated games of the past 7 days. It is a great way to discover what the community is loving right now.',
       },
     ],
   },
@@ -237,7 +237,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="page-header__sub">
-            Everything you need to know about GameTime. Can&apos;t find an
+            Everything you need to know about Game Deck. Can&apos;t find an
             answer?{' '}
             <Link to="/contact">Contact our team.</Link>
           </p>

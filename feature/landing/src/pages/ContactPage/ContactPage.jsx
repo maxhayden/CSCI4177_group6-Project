@@ -282,8 +282,8 @@ export default function ContactPage() {
                 <FaEnvelope />
               </div>
               <h3 className="contact-info__label">Email Us</h3>
-              <a href="mailto:support@gametime.app" className="contact-info__value">
-                support@gametime.app
+              <a href="mailto:support@gamedeck.app" className="contact-info__value">
+                support@gamedeck.app
               </a>
             </div>
 
@@ -307,7 +307,7 @@ export default function ContactPage() {
                     key={label}
                     href={href}
                     className="contact-social-btn"
-                    aria-label={`GameTime on ${label}`}
+                    aria-label={`Game Deck on ${label}`}
                     rel="noopener noreferrer"
                   >
                     <Icon aria-hidden="true" />
@@ -330,7 +330,7 @@ export default function ContactPage() {
             Meet the Developers
           </h2>
           <p className="section-subtitle">
-            GameTime is built by a passionate team of six developers as part of
+            Game Deck is built by a passionate team of six developers as part of
             CSCI&nbsp;4177/5709 at Dalhousie University.
           </p>
           <div className="team-grid">

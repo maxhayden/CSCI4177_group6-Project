@@ -36,9 +36,9 @@ export default function Footer() {
       <div className="footer__top container">
         {/* Brand column */}
         <div className="footer__brand">
-          <Link to="/" className="footer__logo" aria-label="GameTime home">
+          <Link to="/" className="footer__logo" aria-label="Game Deck home">
             <FaGamepad className="footer__logo-icon" aria-hidden="true" />
-            <span>GameTime</span>
+            <span>Game Deck</span>
           </Link>
           <p className="footer__tagline">
             Track smarter. Play better. Take control of your gaming time with
@@ -84,7 +84,7 @@ export default function Footer() {
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
           <p className="footer__copy">
-            &copy; {new Date().getFullYear()} GameTime. Built with passion for
+            &copy; {new Date().getFullYear()} Game Deck. Built with passion for
             gamers, by gamers.
           </p>
           <p className="footer__credit">

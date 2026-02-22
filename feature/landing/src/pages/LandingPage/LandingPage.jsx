@@ -168,7 +168,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="hero__subtext">
-              GameTime helps gamers take control of their time. Track sessions,
+              Game Deck helps gamers take control of their time. Track sessions,
               manage your library, discover new games, and connect with
               friends — all in one place.
             </p>
@@ -194,7 +194,7 @@ export default function LandingPage() {
                 <span className="dashboard-mock__dot" />
                 <span className="dashboard-mock__dot" />
                 <span className="dashboard-mock__dot" />
-                <span className="dashboard-mock__title">GameTime Dashboard</span>
+                <span className="dashboard-mock__title">Game Deck Dashboard</span>
               </div>
               <div className="dashboard-mock__body">
                 <div className="dashboard-mock__stat-row">
@@ -287,7 +287,7 @@ export default function LandingPage() {
           </h2>
           <p className="section-subtitle">
             Whether you are a casual weekend player or a dedicated content
-            creator, GameTime gives you the tools to level up your gaming habits.
+            creator, Game Deck gives you the tools to level up your gaming habits.
           </p>
           <div className="features-grid">
             {FEATURES.map((feature) => {
@@ -350,7 +350,7 @@ export default function LandingPage() {
             Top Rated This Week
           </h2>
           <p className="section-subtitle">
-            Discover what the GameTime community is loving right now.
+            Discover what the Game Deck community is loving right now.
           </p>
         </div>
         <div className="top-games-scroll" role="list" aria-label="Top rated games this week">
@@ -444,7 +444,7 @@ export default function LandingPage() {
             Ready to Take Control of Your Gaming Time?
           </h2>
           <p className="cta-section__sub">
-            Join thousands of gamers who already use GameTime to play smarter.
+            Join thousands of gamers who already use Game Deck to play smarter.
             It is free, always.
           </p>
           <div className="cta-section__actions">
