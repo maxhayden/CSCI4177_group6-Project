@@ -4,6 +4,8 @@ import Footer from './components/Footer/Footer'
 import LandingPage from './pages/LandingPage/LandingPage'
 import ContactPage from './pages/ContactPage/ContactPage'
 import FAQPage from './pages/FAQPage/FAQPage'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
+import LoginPage from './pages/LoginPage/LoginPage'
 import './App.css'
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>
       <Footer />

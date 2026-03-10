@@ -90,10 +90,10 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <div className="navbar__actions">
-          <Link to="/contact" className="btn btn-outline btn-sm" aria-label="Sign in to your account">
+          <Link to="/login" className="btn btn-outline btn-sm" aria-label="Sign in to your account">
             Sign In
           </Link>
-          <Link to="/contact" className="btn btn-primary btn-sm">
+          <Link to="/register" className="btn btn-primary btn-sm">
             Get Started
           </Link>
         </div>
@@ -139,10 +139,10 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="navbar__mobile-actions">
-          <Link to="/contact" className="btn btn-outline" onClick={() => setMenuOpen(false)}>
+          <Link to="/login" className="btn btn-outline" onClick={() => setMenuOpen(false)}>
             Sign In
           </Link>
-          <Link to="/contact" className="btn btn-primary" onClick={() => setMenuOpen(false)}>
+          <Link to="/register" className="btn btn-primary" onClick={() => setMenuOpen(false)}>
             Get Started
           </Link>
         </div>
