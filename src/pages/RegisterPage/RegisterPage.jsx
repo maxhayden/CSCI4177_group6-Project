@@ -61,21 +61,33 @@ export default function RegisterPage() {
     setErrors((err) => ({ ...err, [name]: validate(fields)[name] }))
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setTouched({ username: true, email: true, password: true, confirm: true })
-    const validationErrors = validate(fields)
-    setErrors(validationErrors)
-    if (Object.keys(validationErrors).length > 0) return
+  const handleSubmit = async (e) => {
+  e.preventDefault()
+  setTouched({ username: true, email: true, password: true, confirm: true })
+  const validationErrors = validate(fields)
+  setErrors(validationErrors)
+  if (Object.keys(validationErrors).length > 0) return
 
-    setStatus('submitting')
-    // Placeholder — wire up to real API when backend is ready
-    setTimeout(() => {
-      setStatus('idle')
-      navigate('/')
-    }, 1000)
+  setStatus('submitting')
+  try {
+    const res = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: fields.username,
+        email: fields.email,
+        password: fields.password,
+      }),
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.message)
+    navigate('/')
+  } catch (err) {
+    setErrors({ server: err.message })
+  } finally {
+    setStatus('idle')
   }
-
+}
   return (
     <>
       {/* ── Page Header ─────────────────────────── */}
@@ -249,6 +261,12 @@ export default function RegisterPage() {
                   </p>
                 )}
               </div>
+
+              {errors.server && (
+                <p className="form-error" role="alert">
+                  <FaExclamationCircle aria-hidden="true" /> {errors.server}
+                </p>
+              )}
 
               <button
                 type="submit"
