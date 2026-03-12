@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaGamepad, FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useAuth } from '../../context/AuthContext'
 import '../LoginPage/LoginPage.css'
 
 function getPasswordStrength(password) {
@@ -37,6 +38,7 @@ function validate(fields) {
 
 export default function RegisterPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [fields, setFields] = useState({ username: '', email: '', password: '', confirm: '' })
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
@@ -81,6 +83,7 @@ export default function RegisterPage() {
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data.message)
+    login(data)
     navigate('/')
   } catch (err) {
     setErrors({ server: err.message })

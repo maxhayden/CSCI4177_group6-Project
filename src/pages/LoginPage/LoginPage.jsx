@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaGamepad, FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useAuth } from '../../context/AuthContext'
 import './LoginPage.css'
 
 function validate(fields) {
@@ -20,6 +21,7 @@ function validate(fields) {
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [fields, setFields] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
@@ -41,7 +43,7 @@ export default function LoginPage() {
     setErrors((err) => ({ ...err, [name]: validate(fields)[name] }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setTouched({ email: true, password: true })
     const validationErrors = validate(fields)
@@ -49,11 +51,21 @@ export default function LoginPage() {
     if (Object.keys(validationErrors).length > 0) return
 
     setStatus('submitting')
-    // Placeholder — wire up to real API when backend is ready
-    setTimeout(() => {
-      setStatus('idle')
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: fields.email, password: fields.password }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message)
+      login(data)
       navigate('/')
-    }, 1000)
+    } catch (err) {
+      setErrors({ server: err.message })
+    } finally {
+      setStatus('idle')
+    }
   }
 
   return (
@@ -153,6 +165,12 @@ export default function LoginPage() {
                   </p>
                 )}
               </div>
+
+              {errors.server && (
+                <p className="form-error" role="alert">
+                  <FaExclamationCircle aria-hidden="true" /> {errors.server}
+                </p>
+              )}
 
               <button
                 type="submit"
