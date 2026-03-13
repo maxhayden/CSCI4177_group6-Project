@@ -28,8 +28,11 @@ export default function ProfilePage() {
   })
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
-  const [status, setStatus] = useState('idle') // idle | saving
+  const [status, setStatus] = useState('idle') // idle | saving | deleting
   const [successMsg, setSuccessMsg] = useState('')
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
+  const [deleteConfirmText, setDeleteConfirmText] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -78,6 +81,26 @@ export default function ProfilePage() {
   const handleSignOut = () => {
     logout()
     navigate('/')
+  }
+
+  const handleDeleteAccount = async () => {
+    setStatus('deleting')
+    setDeleteError('')
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/profile', {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.message)
+      }
+      logout()
+      navigate('/')
+    } catch (err) {
+      setDeleteError(err.message)
+      setStatus('idle')
+    }
   }
 
   const avatarInitial = user?.username?.[0]?.toUpperCase() ?? '?'
@@ -247,9 +270,18 @@ export default function ProfilePage() {
                     type="button"
                     className="profile-signout-btn"
                     onClick={handleSignOut}
-                    disabled={status === 'saving'}
+                    disabled={status === 'saving' || status === 'deleting'}
                   >
                     Sign Out
+                  </button>
+
+                  <button
+                    type="button"
+                    className="profile-delete-btn"
+                    onClick={() => { setDeleteError(''); setDeleteConfirmText(''); setShowDeleteModal(true) }}
+                    disabled={status === 'saving' || status === 'deleting'}
+                  >
+                    Delete Account
                   </button>
                 </div>
               </form>
@@ -258,6 +290,55 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Delete Confirmation Modal ────────────── */}
+      {showDeleteModal && (
+        <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+          <div className="modal">
+            <h2 id="delete-modal-title" className="modal__title">Delete Account?</h2>
+            <p className="modal__body">
+              This is permanent. All your data will be erased and cannot be recovered.
+              Type <strong>confirm</strong> below to proceed.
+            </p>
+            <input
+              className="form-input"
+              type="text"
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              placeholder="confirm"
+              autoComplete="off"
+              disabled={status === 'deleting'}
+              aria-label="Type confirm to enable deletion"
+            />
+            {deleteError && (
+              <p className="form-error" role="alert">
+                <FaExclamationCircle aria-hidden="true" /> {deleteError}
+              </p>
+            )}
+            <div className="modal__actions">
+              <button
+                className="btn btn-outline"
+                onClick={() => setShowDeleteModal(false)}
+                disabled={status === 'deleting'}
+              >
+                Cancel
+              </button>
+              <button
+                className="profile-delete-btn"
+                onClick={handleDeleteAccount}
+                disabled={status === 'deleting' || deleteConfirmText !== 'confirm'}
+                aria-busy={status === 'deleting'}
+              >
+                {status === 'deleting' ? (
+                  <><span className="spinner" aria-hidden="true" /> Deleting…</>
+                ) : (
+                  'Yes, Delete'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
