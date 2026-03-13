@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const User = require('../models/User')
 
+// Generates a JWT token for a given user ID
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE })
 

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
+// Tells the Database how a User document should look and behave
 const UserSchema = new mongoose.Schema(
   {
     username: {
