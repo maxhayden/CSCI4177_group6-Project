@@ -94,6 +94,15 @@ export default function Navbar() {
               Contact
             </NavLink>
           </li>
+
+          {user && (
+            <li>
+              <NavLink to="/dashboard" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                Dashboard
+              </NavLink>
+            </li>
+          )}
+
         </ul>
 
         {/* Desktop CTA */}
@@ -161,6 +170,15 @@ export default function Navbar() {
               Contact
             </NavLink>
           </li>
+
+          {user && (
+            <li>
+              <NavLink to="/dashboard" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                Dashboard
+              </NavLink>
+            </li>
+          )}
+          
         </ul>
         <div className="navbar__mobile-actions">
           {user ? (

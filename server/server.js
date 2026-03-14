@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const connectDB = require('./config/db')
 const authRoutes = require('./routes/authRoutes')
+const sessionRoutes = require('./routes/sessionRoutes');
 
 const app = express()
 
@@ -12,6 +13,8 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
+
+app.use('/api/sessions', sessionRoutes)
 
 app.get('/api/health', (req, res) => res.json({ status: 'Game Deck API is running' }))
 
