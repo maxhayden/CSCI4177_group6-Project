@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { FaGamepad, FaBars, FaTimes } from 'react-icons/fa'
-<<<<<<< umar_fazeer
 import { useAuth } from '../../context/AuthContext'
-=======
->>>>>>> main
 import './Navbar.css'
 
 export default function Navbar() {
@@ -12,7 +9,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-<<<<<<< umar_fazeer
   const { user, logout } = useAuth()
 
   const handleSignOut = () => {
@@ -20,8 +16,6 @@ export default function Navbar() {
     logout()
     navigate('/')
   }
-=======
->>>>>>> main
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -104,7 +98,6 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <div className="navbar__actions">
-<<<<<<< umar_fazeer
           {user ? (
             <>
               <Link to="/profile" className="navbar__avatar" aria-label="Your profile">
@@ -127,14 +120,6 @@ export default function Navbar() {
               </Link>
             </>
           )}
-=======
-          <Link to="/contact" className="btn btn-outline btn-sm" aria-label="Sign in to your account">
-            Sign In
-          </Link>
-          <Link to="/contact" className="btn btn-primary btn-sm">
-            Get Started
-          </Link>
->>>>>>> main
         </div>
 
         {/* Mobile hamburger */}
@@ -178,7 +163,6 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="navbar__mobile-actions">
-<<<<<<< umar_fazeer
           {user ? (
             <>
               <Link to="/profile" className="btn btn-outline" onClick={() => setMenuOpen(false)}>
@@ -198,14 +182,6 @@ export default function Navbar() {
               </Link>
             </>
           )}
-=======
-          <Link to="/contact" className="btn btn-outline" onClick={() => setMenuOpen(false)}>
-            Sign In
-          </Link>
-          <Link to="/contact" className="btn btn-primary" onClick={() => setMenuOpen(false)}>
-            Get Started
-          </Link>
->>>>>>> main
         </div>
       </div>
     </header>
