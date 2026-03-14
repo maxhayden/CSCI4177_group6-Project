@@ -100,7 +100,6 @@
   flex-shrink: 0;
 }
 
-<<<<<<< umar_fazeer
 /* Avatar */
 .navbar__avatar {
   width: 36px;
@@ -131,8 +130,6 @@
   object-fit: cover;
 }
 
-=======
->>>>>>> main
 /* Hamburger button */
 .navbar__hamburger {
   display: none;
