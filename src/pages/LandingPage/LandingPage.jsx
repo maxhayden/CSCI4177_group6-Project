@@ -174,7 +174,11 @@ export default function LandingPage() {
             </p>
 
             <div className="hero__actions">
+<<<<<<< umar_fazeer
+              <Link to="/register" className="btn btn-primary btn-lg">
+=======
               <Link to="/contact" className="btn btn-primary btn-lg">
+>>>>>>> main
                 Get Started Free <FaArrowRight aria-hidden="true" />
               </Link>
               <a href="#features" className="btn btn-outline btn-lg">
@@ -448,7 +452,11 @@ export default function LandingPage() {
             It is free, always.
           </p>
           <div className="cta-section__actions">
+<<<<<<< umar_fazeer
+            <Link to="/register" className="btn btn-primary btn-lg">
+=======
             <Link to="/contact" className="btn btn-primary btn-lg">
+>>>>>>> main
               Start Tracking Free <FaArrowRight aria-hidden="true" />
             </Link>
             <Link to="/faq" className="btn btn-outline btn-lg">
