@@ -1,0 +1,165 @@
+/* ================================================
+   Auth Pages — shared styles (Login & Register)
+   ================================================ */
+
+/* ── Auth Section ──────────────────────────────── */
+.auth-section {
+  background: var(--color-bg-primary);
+  padding-bottom: var(--space-24);
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Auth Card ─────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.auth-card__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.auth-card__footer {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── Form ──────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Re-use form-group, form-label, form-input, form-error from ContactPage.css
+   via the shared design tokens — only auth-specific overrides below */
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.form-link {
+  font-size: var(--text-sm);
+  color: var(--color-accent-purple-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.form-link:hover {
+  color: var(--color-accent-cyan);
+}
+
+/* Password field with show/hide toggle */
+.input-password-wrap {
+  position: relative;
+}
+
+.input-password-wrap .form-input {
+  padding-right: var(--space-12);
+}
+
+.password-toggle {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.password-toggle:hover {
+  color: var(--color-accent-purple-light);
+}
+
+/* Submit button */
+.auth-submit-btn {
+  width: 100%;
+  margin-top: var(--space-6);
+  justify-content: center;
+}
+
+/* Password strength bar */
+.password-strength {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.password-strength__bar {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-elevated);
+  overflow: hidden;
+}
+
+.password-strength__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.password-strength__fill--weak   { background: var(--color-error); }
+.password-strength__fill--fair   { background: var(--color-warning); }
+.password-strength__fill--strong { background: var(--color-success); }
+
+.password-strength__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Spinner (same as ContactPage) */
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 520px) {
+  .auth-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+  }
+}
