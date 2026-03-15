@@ -15,6 +15,8 @@ import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import FriendRequestsPage from './pages/FriendRequestsPage/FriendRequestsPage';
+import ListsPage from './pages/ListsPage/ListsPage';
+import ListDetailPage from './pages/ListDetailPage/ListDetailPage';
 import './App.css'
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/friends" element={<FriendsPage />} />
             <Route path="/friend-requests" element={<FriendRequestsPage />} />
+            <Route path="/lists" element={<ListsPage />} />
+            <Route path="/lists/:id" element={<ListDetailPage />} />
           </Routes>
         </main>
         <Footer />
