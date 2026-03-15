@@ -1,22 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReviewSection from '../../components/ReviewSection/ReviewSection';
+import { useAuth } from '../../context/AuthContext';
 import './GameDetails.css';
 
 const API = import.meta.env.VITE_API_URL;
 
 export default function GameDetails() {
+
+  const { user } = useAuth();
+  const token = user?.token;
+
   const { id } = useParams();
   const [game, setGame] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
-    fetch(`${API}/api/games/${id}`)
+    fetch(`${API}/api/games/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => res.json())
       .then(data => setGame(data))
       .catch(err => console.error(err));
 
-    fetch(`${API}/api/games/${id}/recommendations`)
+    fetch(`${API}/api/games/${id}/recommendations`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => res.json())
       .then(data => setRecommendations(data.results || []))
       .catch(err => console.error(err));
