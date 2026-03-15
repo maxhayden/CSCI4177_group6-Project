@@ -52,7 +52,7 @@ export default function LoginPage() {
 
     setStatus('submitting')
     try {
-      const res = await fetch('https://csci4177-group6-project.onrender.com/api/auth/login', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: fields.email, password: fields.password }),
