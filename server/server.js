@@ -5,6 +5,7 @@ const connectDB = require('./config/db')
 const authRoutes = require('./routes/authRoutes')
 const sessionRoutes = require('./routes/sessionRoutes');
 const rawgRoutes = require('./routes/rawgRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/sessions', sessionRoutes)
 
 app.use('/api/games', rawgRoutes)
+app.use('/api/reviews', reviewRoutes)
 
 app.get('/api/health', (req, res) => res.json({ status: 'Game Deck API is running' }))
 
