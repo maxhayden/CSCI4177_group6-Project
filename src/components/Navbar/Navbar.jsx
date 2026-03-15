@@ -103,6 +103,14 @@ export default function Navbar() {
             </li>
           )}
 
+          {user && (
+            <li>
+              <NavLink to="/search" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                Games
+              </NavLink>
+            </li>
+          )}
+
         </ul>
 
         {/* Desktop CTA */}

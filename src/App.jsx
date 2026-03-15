@@ -8,6 +8,8 @@ import FAQPage from './pages/FAQPage/FAQPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
+import SearchPage from './pages/SearchPage/SearchPage'
+import GameDetails from './pages/GameDetailsPage/GameDetails'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
 import DashboardPage from './pages/DashboardPage/DashboardPage';
@@ -29,6 +31,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/game/:id" element={<GameDetails />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
