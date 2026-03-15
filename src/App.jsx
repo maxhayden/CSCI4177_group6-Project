@@ -13,6 +13,8 @@ import GameDetails from './pages/GameDetailsPage/GameDetails'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
 import DashboardPage from './pages/DashboardPage/DashboardPage';
+import FriendsPage from './pages/FriendsPage/FriendsPage';
+import FriendRequestsPage from './pages/FriendRequestsPage/FriendRequestsPage';
 import './App.css'
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/friends" element={<FriendsPage />} />
+            <Route path="/friend-requests" element={<FriendRequestsPage />} />
           </Routes>
         </main>
         <Footer />
