@@ -5,7 +5,7 @@ import './SearchPage.css';
 
 async function fetchGames(querytoSearch) {
   try {
-    const res = await fetch(`http://localhost:3001/api/games/search/${querytoSearch}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/games/search/${querytoSearch}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
