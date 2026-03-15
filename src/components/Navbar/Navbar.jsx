@@ -103,6 +103,14 @@ export default function Navbar() {
             </li>
           )}
 
+          {user && (
+            <li>
+              <NavLink to="/friends" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                Friends
+              </NavLink>
+            </li>
+          )}
+
         </ul>
 
         {/* Desktop CTA */}
@@ -178,7 +186,15 @@ export default function Navbar() {
               </NavLink>
             </li>
           )}
-          
+
+          {user && (
+            <li>
+              <NavLink to="/friends" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                Friends
+              </NavLink>
+            </li>
+          )}
+
         </ul>
         <div className="navbar__mobile-actions">
           {user ? (
