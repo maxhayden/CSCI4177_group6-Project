@@ -72,7 +72,7 @@ export default function RegisterPage() {
 
   setStatus('submitting')
   try {
-    const res = await fetch('https://csci4177-group6-project.onrender.com/api/auth/register', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
