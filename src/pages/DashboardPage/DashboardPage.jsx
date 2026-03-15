@@ -14,7 +14,7 @@ export default function DashboardPage() {
     if (!token) return;
 
     try {
-      const res = await fetch('http://localhost:5000/api/sessions/stats', {
+      const res = await fetch('https://csci4177-group6-project.onrender.com/api/sessions/stats', {
         headers: { 'Authorization': `Bearer ${token}` } 
       });
       
@@ -44,7 +44,7 @@ export default function DashboardPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/sessions/log', {
+      const res = await fetch('https://csci4177-group6-project.onrender.com/api/sessions/log', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

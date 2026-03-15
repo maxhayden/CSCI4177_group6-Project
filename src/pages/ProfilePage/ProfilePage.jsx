@@ -59,7 +59,7 @@ export default function ProfilePage() {
 
     setStatus('saving')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch('https://csci4177-group6-project.onrender.com/api/auth/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function ProfilePage() {
     setStatus('deleting')
     setDeleteError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch('https://csci4177-group6-project.onrender.com/api/auth/profile', {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` },
       })
