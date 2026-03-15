@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useSearchParams, useNavigate } from 'react-router-dom';
 import './SearchPage.css';
 
-async function fetchGames(querytoSearch) {
+async function fetchGames(querytoSearch, token) {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/games/search/${querytoSearch}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
     });
     const data = await res.json();
     return data;
@@ -23,6 +26,7 @@ function gameDetails(gameId) {
 
 export default function SearchPage() {
   const { user } = useAuth();
+  const token = user?.token;
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [searchResults, setSearchResults] = useState([]);
@@ -32,7 +36,7 @@ export default function SearchPage() {
     const query = searchParams.get('q');
     if (query) {
       setSearchQuery(query);
-      fetchGames(query)
+      fetchGames(query, token)
         .then(data => setSearchResults(data.results))
         .catch(err => console.error(err));
     }
