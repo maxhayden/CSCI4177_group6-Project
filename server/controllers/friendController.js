@@ -2,8 +2,6 @@ const FriendRequest = require("../models/FriendRequest");
 const User = require("../models/User");
 
 // Search for a user by username so the current user can send them a friend request.
-// Returns the matching user's basic profile, or an error if not found or searching yourself.
-// GET /api/friends/search?username=
 const searchUser = async (req, res) => {
   try {
     const { username } = req.query;
@@ -23,10 +21,7 @@ const searchUser = async (req, res) => {
   }
 };
 
-// Send a friend request to another user.
-// Prevents duplicates — won't allow sending if a request already exists in either direction,
-// or if both users are already friends.
-// POST /api/friends/request  body: { toUserId }
+// Send a friend request to another user, prevents duplicate friend requests.
 const sendRequest = async (req, res) => {
   try {
     const { toUserId } = req.body;
@@ -54,7 +49,6 @@ const sendRequest = async (req, res) => {
 };
 
 // Get all pending friend requests that other users have sent to the current user.
-// GET /api/friends/requests/incoming
 const getIncoming = async (req, res) => {
   try {
     const requests = await FriendRequest.find({ to: req.user._id, status: "pending" })
@@ -67,9 +61,6 @@ const getIncoming = async (req, res) => {
 };
 
 // Get the current user's full friends list.
-// Finds all accepted friendships where the user is on either side (sender or receiver),
-// then returns just the other person's profile in each case.
-// GET /api/friends/list
 const getFriends = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -100,8 +91,6 @@ const getFriends = async (req, res) => {
 };
 
 // Accept an incoming friend request.
-// Only the recipient of the request is allowed to accept it.
-// PUT /api/friends/request/:id/accept
 const acceptRequest = async (req, res) => {
   try {
     const request = await FriendRequest.findById(req.params.id);
@@ -117,9 +106,7 @@ const acceptRequest = async (req, res) => {
   }
 };
 
-// Decline (ignore) an incoming friend request by deleting it.
-// Only the recipient of the request is allowed to do this.
-// DELETE /api/friends/request/:id/ignore
+// Ignore an incoming friend request by deleting it.
 const ignoreRequest = async (req, res) => {
   try {
     const request = await FriendRequest.findById(req.params.id);
@@ -135,8 +122,6 @@ const ignoreRequest = async (req, res) => {
 };
 
 // Remove an existing friend by deleting the friendship record.
-// Either user in the friendship can remove the other.
-// DELETE /api/friends/:id/remove
 const removeFriend = async (req, res) => {
   try {
     const userId = req.user._id;
