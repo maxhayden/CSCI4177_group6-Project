@@ -119,6 +119,14 @@ export default function Navbar() {
             </li>
           )}
 
+          {user && (
+            <li>
+              <NavLink to="/lists" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                My Lists
+              </NavLink>
+            </li>
+          )}
+
         </ul>
 
         {/* Desktop CTA */}
@@ -207,6 +215,14 @@ export default function Navbar() {
             <li>
               <NavLink to="/search" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
                 Games
+              </NavLink>
+            </li>
+          )}
+
+          {user && (
+            <li>
+              <NavLink to="/lists" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                My Lists
               </NavLink>
             </li>
           )}
