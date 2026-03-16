@@ -1,15 +1,33 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import ReviewSection from '../../components/ReviewSection/ReviewSection';
+import { useAuth } from '../../context/AuthContext';
 import './GameDetails.css';
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function GameDetails() {
+
+  const { user } = useAuth();
+  const token = user?.token;
+
   const { id } = useParams();
   const [game, setGame] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/games/${id}`)
+    fetch(`${API}/api/games/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => res.json())
       .then(data => setGame(data))
+      .catch(err => console.error(err));
+
+    fetch(`${API}/api/games/${id}/recommendations`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => res.json())
+      .then(data => setRecommendations(data.results || []))
       .catch(err => console.error(err));
   }, [id]);
 
@@ -72,6 +90,31 @@ export default function GameDetails() {
           </ul>
         </div>
       </div>
+
+      {/* Reviews */}
+      <ReviewSection gameId={String(id)} gameName={game.name} />
+
+      {/* Recommendations */}
+      {recommendations.length > 0 && (
+        <div className="game-details-section recommendations-section">
+          <h2>Similar Games You Might Like</h2>
+          <div className="recommendations-grid">
+            {recommendations.map(rec => (
+              <Link key={rec.id} to={`/game/${rec.id}`} className="rec-card">
+                {rec.background_image && (
+                  <img src={rec.background_image} alt={rec.name} className="rec-image" />
+                )}
+                <div className="rec-info">
+                  <span className="rec-name">{rec.name}</span>
+                  {rec.rating > 0 && (
+                    <span className="rec-rating">★ {rec.rating.toFixed(1)}</span>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

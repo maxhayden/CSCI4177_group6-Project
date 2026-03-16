@@ -11,6 +11,15 @@ node_modules
 dist
 dist-ssr
 *.local
+.vite
+
+# Environment variables
+.env
+.env.*
+server/.env
+
+# Claude Code internal files
+.claude/
 
 # Editor directories and files
 .vscode/*
