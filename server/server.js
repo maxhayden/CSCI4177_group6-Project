@@ -8,6 +8,7 @@ const rawgRoutes = require('./routes/rawgRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const friendRoutes = require('./routes/friendRoutes');
 const listRoutes = require('./routes/listRoutes');
+const wishlistRoutes = require('./routes/wishlistRoutes');
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use('/api/games', rawgRoutes)
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/friends', friendRoutes)
 app.use('/api/lists', listRoutes)
+app.use('/api/wishlist', wishlistRoutes)
 
 app.get('/api/health', (req, res) => res.json({ status: 'Game Deck API is running' }))
 
