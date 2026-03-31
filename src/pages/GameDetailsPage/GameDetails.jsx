@@ -15,6 +15,11 @@ export default function GameDetails() {
   const [game, setGame] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
 
+  const [showListModal, setShowListModal] = useState(false);
+  const [userLists, setUserLists] = useState([]);
+  const [addingToListId, setAddingToListId] = useState(null);
+  const [listMsg, setListMsg] = useState('');
+
   useEffect(() => {
     fetch(`${API}/api/games/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -30,6 +35,48 @@ export default function GameDetails() {
       .then(data => setRecommendations(data.results || []))
       .catch(err => console.error(err));
   }, [id]);
+
+  const handleOpenListModal = async () => {
+    setListMsg('');
+    setShowListModal(true);
+    if (userLists.length === 0) {
+      try {
+        const res = await fetch(`${API}/api/lists/my`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        setUserLists(data);
+      } catch {
+        setListMsg('Could not load your lists.');
+      }
+    }
+  };
+
+  const handleAddToList = async (listId, listName) => {
+    setAddingToListId(listId);
+    setListMsg('');
+    try {
+      const res = await fetch(`${API}/api/lists/${listId}/games`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          gameId: String(game.id),
+          gameName: game.name,
+          gameCover: game.background_image || ''
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to add game');
+      setListMsg(`✅ Added to "${listName}"!`);
+    } catch (err) {
+      setListMsg(`⚠️ ${err.message}`);
+    } finally {
+      setAddingToListId(null);
+    }
+  };
 
   if (!game) return <p className="loading">Loading...</p>;
 
@@ -53,7 +100,39 @@ export default function GameDetails() {
         </div>
       </div>
 
-      <button className="btn btn-primary list-button">Add To List</button>
+      <button className="btn btn-primary list-button" onClick={handleOpenListModal}>
+        Add To List
+      </button>
+
+      {showListModal && (
+        <div className="modal-overlay" onClick={() => setShowListModal(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h2 className="modal__title">Add to a List</h2>
+            {listMsg && <p style={{ marginBottom: '1rem' }}>{listMsg}</p>}
+            {userLists.length === 0 && !listMsg ? (
+              <p>Loading your lists…</p>
+            ) : userLists.length === 0 && listMsg ? null : (
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {userLists.map(list => (
+                  <li key={list._id} style={{ marginBottom: '0.5rem' }}>
+                    <button
+                      className="btn btn-outline"
+                      style={{ width: '100%', textAlign: 'left' }}
+                      disabled={addingToListId === list._id}
+                      onClick={() => handleAddToList(list._id, list.name)}
+                    >
+                      {addingToListId === list._id ? 'Adding…' : list.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="modal__footer" style={{ marginTop: '1rem' }}>
+              <button className="btn btn-outline" onClick={() => setShowListModal(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {game.description_raw && (
         <div className="game-details-section">
