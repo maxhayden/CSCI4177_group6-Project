@@ -20,6 +20,9 @@ export default function GameDetails() {
   const [addingToListId, setAddingToListId] = useState(null);
   const [listMsg, setListMsg] = useState('');
 
+  const [wishlistMsg, setWishlistMsg] = useState('');
+  const [addingToWishlist, setAddingToWishlist] = useState(false);
+
   useEffect(() => {
     fetch(`${API}/api/games/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -78,6 +81,37 @@ export default function GameDetails() {
     }
   };
 
+  const handleAddToWishlist = async () => {
+    setAddingToWishlist(true);
+    setWishlistMsg('');
+    try {
+      const res = await fetch(`${API}/api/wishlist/games`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          gameId: String(game.id),
+          gameName: game.name,
+          gameCover: game.background_image || ''
+        })
+      });
+      const data = await res.json();
+      if (res.status === 409) {
+        setWishlistMsg('Already in your wishlist');
+      } else if (!res.ok) {
+        throw new Error(data.message || 'Failed to add to wishlist');
+      } else {
+        setWishlistMsg('Added to Wishlist!');
+      }
+    } catch (err) {
+      setWishlistMsg(err.message);
+    } finally {
+      setAddingToWishlist(false);
+    }
+  };
+
   if (!game) return <p className="loading">Loading...</p>;
 
   return (
@@ -100,9 +134,23 @@ export default function GameDetails() {
         </div>
       </div>
 
-      <button className="btn btn-primary list-button" onClick={handleOpenListModal}>
-        Add To List
-      </button>
+      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', margin: '1rem 0' }}>
+        <button className="btn btn-primary list-button" onClick={handleOpenListModal}>
+          Add To List
+        </button>
+        <button
+          className="btn btn-outline list-button"
+          onClick={handleAddToWishlist}
+          disabled={addingToWishlist}
+        >
+          {addingToWishlist ? 'Adding…' : '⭐ Add to Wishlist'}
+        </button>
+        {wishlistMsg && (
+          <span style={{ fontSize: '0.875rem', color: wishlistMsg.includes('Already') ? '#f59e0b' : '#22c55e' }}>
+            {wishlistMsg}
+          </span>
+        )}
+      </div>
 
       {showListModal && (
         <div className="modal-overlay" onClick={() => setShowListModal(false)}>

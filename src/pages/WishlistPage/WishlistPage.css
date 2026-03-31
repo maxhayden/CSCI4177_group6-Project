@@ -1,0 +1,210 @@
+.wishlist-page {
+  padding: 2rem 1rem 4rem;
+  min-height: 70vh;
+}
+
+.wishlist-auth-msg {
+  color: var(--color-text-muted, #888);
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.wishlist-auth-msg a {
+  color: var(--color-primary, #7c3aed);
+}
+
+/* Header */
+.wishlist-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.wishlist-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.wishlist-subtitle {
+  color: var(--color-text-muted, #888);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Status */
+.wishlist-status {
+  text-align: center;
+  color: var(--color-text-muted, #888);
+  margin-top: 3rem;
+}
+
+.wishlist-status--error {
+  color: #ef4444;
+}
+
+/* Empty state */
+.wishlist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5rem 1rem;
+  text-align: center;
+}
+
+.wishlist-empty-icon {
+  font-size: 3.5rem;
+}
+
+.wishlist-empty h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.wishlist-empty p {
+  color: var(--color-text-muted, #888);
+  margin: 0;
+  max-width: 400px;
+}
+
+/* Games list */
+.wishlist-games {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.wishlist-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-surface, #1e1e2e);
+  border: 1px solid var(--color-border, #2a2a3a);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s;
+}
+
+.wishlist-entry:hover {
+  border-color: var(--color-primary, #7c3aed);
+}
+
+.wishlist-entry__img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.wishlist-entry__img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border, #2a2a3a);
+  font-size: 1.2rem;
+}
+
+.wishlist-entry__name {
+  flex: 1;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-text, #fff);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wishlist-entry__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.wishlist-entry__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  line-height: 1;
+}
+
+.wishlist-entry__remove:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Modal (reused from ListsPage pattern) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: var(--color-surface, #1e1e2e);
+  border: 1px solid var(--color-border, #2a2a3a);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.modal--sm {
+  max-width: 340px;
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.modal__body {
+  color: var(--color-text-muted, #888);
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+@media (max-width: 480px) {
+  .wishlist-title { font-size: 1.5rem; }
+  .wishlist-entry { flex-wrap: wrap; }
+  .wishlist-entry__name { min-width: 100%; order: 3; }
+}
