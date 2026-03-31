@@ -67,7 +67,7 @@ export default function ListDetailPage() {
     setAddMsg('')
     try {
       const res = await fetch(
-        `${API}/api/games/search?q=${encodeURIComponent(searchQuery)}`,
+        `${API}/api/games/search/${encodeURIComponent(searchQuery)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       if (!res.ok) throw new Error('Search failed')
