@@ -186,8 +186,21 @@ export default function GameDetails() {
         <div className="game-details-section">
           <h2>About</h2>
           <p>{game.description_raw}</p>
+          {game.playtime && (
+            <div className="pt-bar-wrap">
+              <div className="pt-top">
+                <h3>avg playtime</h3>
+                <span><span className="pt-num">{game.playtime}</span><span className="pt-unit">hrs</span></span>
+              </div>
+              <div className="pt-track">
+                <div className="pt-fill" style={{ width: `${Math.min((game.playtime / 100) * 100, 100)}%` }} />
+              </div>
+            </div>
+          )}
         </div>
       )}
+
+
 
       <div className="game-details-grid">
         <div className="game-details-section">
