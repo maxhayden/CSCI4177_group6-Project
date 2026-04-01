@@ -242,7 +242,8 @@ button {
 }
 
 .btn-primary {
-  background: var(--gradient-primary);
+  background: var(--gradient-primary);  
+  background-clip: padding-box;
   color: #fff;
   border-color: transparent;
   box-shadow: var(--shadow-glow-purple);
