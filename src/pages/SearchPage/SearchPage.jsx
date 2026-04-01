@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import './SearchPage.css';
 
 const GENRES = [
@@ -43,6 +43,7 @@ function gameDetails(gameId) {
 
 export default function SearchPage() {
   const { user } = useAuth();
+  const token = user?.token;
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
@@ -73,7 +74,7 @@ export default function SearchPage() {
       }
     }
     load();
-  }, [activeQuery]);
+  }, [activeQuery, token]);
 
   // Browse mode: triggered when no search query
   useEffect(() => {
@@ -92,7 +93,7 @@ export default function SearchPage() {
       }
     }
     load();
-  }, [activeQuery, selectedGenre, ordering, page]);
+  }, [activeQuery, selectedGenre, ordering, page, token]);
 
   function handleSubmit(e) {
     e.preventDefault();
