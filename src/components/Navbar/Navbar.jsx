@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { FaGamepad, FaBars, FaTimes } from 'react-icons/fa'
+import { FaGamepad, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa'
 import { useAuth } from '../../context/AuthContext'
 import './Navbar.css'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
   const { user, logout } = useAuth()
@@ -23,7 +25,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close menu on route change / outside click
+  // Close mobile menu on route change / outside click
   useEffect(() => {
     if (!menuOpen) return
     const close = (e) => {
@@ -32,6 +34,23 @@ export default function Navbar() {
     document.addEventListener('click', close)
     return () => document.removeEventListener('click', close)
   }, [menuOpen])
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!dropdownOpen) return
+    const close = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [dropdownOpen])
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setDropdownOpen(false)
+  }, [location.pathname])
 
   // Prevent body scroll when mobile menu open
   useEffect(() => {
@@ -52,9 +71,9 @@ export default function Navbar() {
   const scrollToFeatures = (e) => {
     e.preventDefault()
     setMenuOpen(false)
+    setDropdownOpen(false)
     if (location.pathname !== '/') {
       navigate('/')
-      // Wait for the page to render then scroll
       setTimeout(() => {
         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })
       }, 100)
@@ -79,62 +98,79 @@ export default function Navbar() {
               Home
             </NavLink>
           </li>
-          <li>
-            <a href="#features" className="navbar__link" onClick={scrollToFeatures}>
-              Features
-            </a>
-          </li>
-          <li>
-            <NavLink to="/faq" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-              FAQ
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-              Contact
-            </NavLink>
-          </li>
 
-          {user && (
-            <li>
-              <NavLink to="/dashboard" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-                Dashboard
-              </NavLink>
-            </li>
+          {user ? (
+            /* Logged-in nav: Home | Games | My Lists | Wishlist | Friends | More▼ */
+            <>
+              <li>
+                <NavLink to="/search" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  Games
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/lists" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  My Lists
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/wishlist" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  Wishlist
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/friends" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  Friends
+                </NavLink>
+              </li>
+              {/* More dropdown */}
+              <li className="navbar__dropdown" ref={dropdownRef}>
+                <button
+                  className={`navbar__link navbar__dropdown-btn ${dropdownOpen ? 'navbar__link--active' : ''}`}
+                  onClick={() => setDropdownOpen((o) => !o)}
+                  aria-expanded={dropdownOpen}
+                  aria-haspopup="true"
+                >
+                  More <FaChevronDown className={`navbar__dropdown-chevron ${dropdownOpen ? 'navbar__dropdown-chevron--open' : ''}`} aria-hidden="true" />
+                </button>
+                {dropdownOpen && (
+                  <div className="navbar__dropdown-menu" role="menu">
+                    <a href="#features" className="navbar__dropdown-item" onClick={scrollToFeatures} role="menuitem">
+                      Features
+                    </a>
+                    <NavLink to="/faq" className="navbar__dropdown-item" onClick={() => setDropdownOpen(false)} role="menuitem">
+                      FAQ
+                    </NavLink>
+                    <NavLink to="/contact" className="navbar__dropdown-item" onClick={() => setDropdownOpen(false)} role="menuitem">
+                      Contact
+                    </NavLink>
+                    <div className="navbar__dropdown-divider" aria-hidden="true" />
+                    <NavLink to="/dashboard" className="navbar__dropdown-item" onClick={() => setDropdownOpen(false)} role="menuitem">
+                      GameLog
+                    </NavLink>
+                  </div>
+                )}
+              </li>
+            </>
+          ) : (
+            /* Logged-out nav: Home | Features | FAQ | Contact */
+            <>
+              <li>
+                <a href="#features" className="navbar__link" onClick={scrollToFeatures}>
+                  Features
+                </a>
+              </li>
+              <li>
+                <NavLink to="/faq" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  FAQ
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
+                  Contact
+                </NavLink>
+              </li>
+            </>
           )}
-
-          {user && (
-            <li>
-              <NavLink to="/friends" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-                Friends
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/search" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-                Games
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/lists" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-                My Lists
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/wishlist" className={({ isActive }) => `navbar__link ${isActive ? 'navbar__link--active' : ''}`}>
-                Wishlist
-              </NavLink>
-            </li>
-          )}
-
         </ul>
 
         {/* Desktop CTA */}
@@ -187,63 +223,72 @@ export default function Navbar() {
               Home
             </NavLink>
           </li>
-          <li>
-            <a href="#features" className="navbar__mobile-link" onClick={scrollToFeatures}>
-              Features
-            </a>
-          </li>
-          <li>
-            <NavLink to="/faq" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-              FAQ
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-              Contact
-            </NavLink>
-          </li>
 
-          {user && (
-            <li>
-              <NavLink to="/dashboard" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-                Dashboard
-              </NavLink>
-            </li>
+          {user ? (
+            <>
+              <li>
+                <NavLink to="/search" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  Games
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/lists" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  My Lists
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/wishlist" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  Wishlist
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/friends" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  Friends
+                </NavLink>
+              </li>
+              <li className="navbar__mobile-section-label">More</li>
+              <li>
+                <a href="#features" className="navbar__mobile-link navbar__mobile-link--sub" onClick={scrollToFeatures}>
+                  Features
+                </a>
+              </li>
+              <li>
+                <NavLink to="/faq" className={({ isActive }) => `navbar__mobile-link navbar__mobile-link--sub ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  FAQ
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact" className={({ isActive }) => `navbar__mobile-link navbar__mobile-link--sub ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  Contact
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard" className={({ isActive }) => `navbar__mobile-link navbar__mobile-link--sub ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  GameLog
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <a href="#features" className="navbar__mobile-link" onClick={scrollToFeatures}>
+                  Features
+                </a>
+              </li>
+              <li>
+                <NavLink to="/faq" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  FAQ
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
+                  Contact
+                </NavLink>
+              </li>
+            </>
           )}
-
-          {user && (
-            <li>
-              <NavLink to="/friends" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-                Friends
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/search" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-                Games
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/lists" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-                My Lists
-              </NavLink>
-            </li>
-          )}
-
-          {user && (
-            <li>
-              <NavLink to="/wishlist" className={({ isActive }) => `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`} onClick={() => setMenuOpen(false)}>
-                Wishlist
-              </NavLink>
-            </li>
-          )}
-
         </ul>
+
         <div className="navbar__mobile-actions">
           {user ? (
             <>

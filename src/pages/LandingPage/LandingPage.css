@@ -2,6 +2,169 @@
    Landing Page
    ================================================ */
 
+/* ── Logged-in Home ────────────────────────────── */
+
+.home-hero {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: var(--navbar-height);
+}
+
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-12);
+}
+
+.home-hero__badge {
+  margin-bottom: var(--space-4);
+  display: inline-flex;
+}
+
+.home-hero__heading {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+}
+
+.home-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: fadeInUp 0.7s ease both;
+  max-width: 600px;
+}
+
+/* Quick actions grid */
+.home-actions-section {
+  padding-top: 0;
+}
+
+.home-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.home-action-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-action-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.home-action-card--purple::before {
+  background: radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.12), transparent 70%);
+}
+
+.home-action-card--cyan::before {
+  background: radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.1), transparent 70%);
+}
+
+.home-action-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.home-action-card--purple:hover {
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+}
+
+.home-action-card--cyan:hover {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 32px rgba(6, 182, 212, 0.12);
+}
+
+.home-action-card:hover::before {
+  opacity: 1;
+}
+
+.home-action-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.home-action-card__icon--purple {
+  background: rgba(124, 58, 237, 0.15);
+  color: var(--color-accent-purple-light);
+}
+
+.home-action-card__icon--cyan {
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--color-accent-cyan);
+}
+
+.home-action-card__title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+}
+
+.home-action-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.home-action-card__arrow {
+  align-self: flex-end;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.home-action-card:hover .home-action-card__arrow {
+  transform: translateX(4px);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 600px) {
+  .home-actions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-hero__heading {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Hero ──────────────────────────────────────── */
 .hero {
   position: relative;

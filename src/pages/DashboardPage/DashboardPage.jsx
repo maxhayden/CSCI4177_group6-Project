@@ -68,7 +68,8 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-container container">
-      <h1>Welcome, {user?.username || 'Player'}</h1>
+      <h1>GameLog</h1>
+      <p className="gamelog-subtitle">Welcome back, {user?.username || 'Player'} — log your sessions below.</p>
       <div className="stats-grid">
         {Array.isArray(stats) && stats.map(s => (
           <div key={s._id} className="stat-card">
