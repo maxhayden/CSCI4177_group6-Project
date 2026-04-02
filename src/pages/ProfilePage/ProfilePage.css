@@ -2,6 +2,61 @@
    Profile Page
    ================================================ */
 
+.profile-privacy-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--space-6);
+}
+
+.privacy-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.privacy-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.privacy-toggle__slider {
+  position: absolute;
+  inset: 0;
+  background: #3a3a5c;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.privacy-toggle__slider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s;
+}
+
+.privacy-toggle input:checked + .privacy-toggle__slider {
+  background: var(--color-accent-purple, #7c3aed);
+}
+
+.privacy-toggle input:checked + .privacy-toggle__slider::before {
+  transform: translateX(20px);
+}
+
+.privacy-toggle__label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
 .profile-section {
   background: var(--color-bg-primary);
   padding-bottom: var(--space-24);

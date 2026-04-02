@@ -5,6 +5,7 @@ const {
   loginUser,
   getProfile,
   updateProfile,
+  updatePrivacy,
   forgotPassword,
   resetPassword,
   deleteAccount,
@@ -17,6 +18,7 @@ router.get('/profile', protect, getProfile)
 router.put('/profile', protect, updateProfile)
 router.post('/forgot-password', forgotPassword)
 router.put('/reset-password/:token', resetPassword)
+router.put('/privacy', protect, updatePrivacy)
 router.delete('/profile', protect, deleteAccount)
 
 module.exports = router

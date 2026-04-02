@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    isPublic: {
+      type: Boolean,
+      default: true,
+    },
     resetPasswordToken: {
       type: String,
     },

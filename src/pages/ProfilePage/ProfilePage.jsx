@@ -26,6 +26,7 @@ export default function ProfilePage() {
     username: user?.username ?? '',
     bio: user?.bio ?? '',
   })
+  const [isPublic, setIsPublic] = useState(user?.isPublic !== false)
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [status, setStatus] = useState('idle') // idle | saving | deleting
@@ -81,6 +82,26 @@ export default function ProfilePage() {
   const handleSignOut = () => {
     logout()
     navigate('/')
+  }
+
+  const handlePrivacyToggle = async () => {
+    const newValue = !isPublic
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/privacy`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ isPublic: newValue }),
+      })
+      if (res.ok) {
+        setIsPublic(newValue)
+        login({ ...user, isPublic: newValue })
+      }
+    } catch (err) {
+      console.error('Failed to update privacy:', err)
+    }
   }
 
   const handleDeleteAccount = async () => {
@@ -251,6 +272,22 @@ export default function ProfilePage() {
                     <FaCheckCircle aria-hidden="true" /> {successMsg}
                   </p>
                 )}
+
+                {/* Privacy Toggle */}
+                <div className="profile-privacy-row">
+                  <span className="form-label">Profile Visibility</span>
+                  <label className="privacy-toggle">
+                    <input
+                      type="checkbox"
+                      checked={isPublic}
+                      onChange={handlePrivacyToggle}
+                    />
+                    <span className="privacy-toggle__slider" />
+                  </label>
+                  <span className="privacy-toggle__label">
+                    {isPublic ? 'Public' : 'Private'}
+                  </span>
+                </div>
 
                 <div className="profile-actions">
                   <button
