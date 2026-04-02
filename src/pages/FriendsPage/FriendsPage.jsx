@@ -49,16 +49,12 @@ export default function FriendsPage() {
 
   return (
     <div className="friends-container container">
-
-      {/* Header with link to manage friend requests */}
       <div className="friends-top-bar">
         <h1>Friends</h1>
         <Link to="/friend-requests" className="btn btn-primary">
           Friend Requests
         </Link>
       </div>
-
-      {/* Friends list */}
       {friends.length === 0 ? (
         <div className="friends-section">
           <p className="friends-empty">You have not added any friends yet.</p>

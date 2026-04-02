@@ -148,7 +148,7 @@ export default function FriendRequestsPage() {
               {searchResult.username[0].toUpperCase()}
             </div>
             <span className="confirm-text">
-              Send a friend request to <strong>{searchResult.username}</strong>?
+              Send a friend request to <Link to={`/user/${searchResult.username}`} style={{ color: '#a855f7' }}><strong>{searchResult.username}</strong></Link>?
             </span>
             <div className="confirm-actions">
               <button className="btn btn-primary btn-sm" onClick={handleSendRequest}>

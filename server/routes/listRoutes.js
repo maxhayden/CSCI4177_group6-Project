@@ -8,6 +8,7 @@ const {
   addGameToList,
   removeGameFromList,
   getPublicLists,
+  getUserLists,
 } = require('../controllers/listController')
 const { protect } = require('../middleware/authMiddleware')
 
@@ -15,6 +16,7 @@ const router = express.Router()
 
 // Public
 router.get('/public', protect, getPublicLists)
+router.get('/user/:userId', protect, getUserLists)
 
 // My lists (authenticated)
 router.get('/my', protect, getMyLists)

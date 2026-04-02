@@ -67,6 +67,11 @@
   flex: 1;
   font-size: 1rem;
   color: #f1f5f9;
+  text-decoration: none;
+}
+
+.friend-username:hover {
+  color: #a855f7;
 }
 
 .friends-empty {

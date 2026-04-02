@@ -18,6 +18,7 @@ import FriendRequestsPage from './pages/FriendRequestsPage/FriendRequestsPage';
 import ListsPage from './pages/ListsPage/ListsPage';
 import ListDetailPage from './pages/ListDetailPage/ListDetailPage';
 import WishlistPage from './pages/WishlistPage/WishlistPage';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import './App.css'
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/lists" element={<ListsPage />} />
             <Route path="/lists/:id" element={<ListDetailPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/user/:username" element={<UserProfilePage />} />
           </Routes>
         </main>
         <Footer />

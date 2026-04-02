@@ -1,4 +1,6 @@
 const List = require('../models/List')
+const User = require('../models/User')
+const FriendRequest = require('../models/FriendRequest')
 
 // POST /api/lists — create a new list
 const createList = async (req, res) => {
@@ -167,6 +169,40 @@ const getPublicLists = async (req, res) => {
   }
 }
 
+// get public lists for a user, respecting profile privacy
+const getUserLists = async (req, res) => {
+  try {
+    const targetUser = await User.findById(req.params.userId)
+    if (!targetUser) return res.status(404).json({ message: 'User not found' })
+
+    const isOwner = targetUser._id.equals(req.user._id)
+
+    if (isOwner) {
+      const lists = await List.find({ ownerId: req.params.userId }).sort({ createdAt: -1 })
+      return res.json(lists)
+    }
+
+    // Check profile privacy
+    if (targetUser.isPublic === false) {
+      const friendship = await FriendRequest.findOne({
+        status: 'accepted',
+        $or: [
+          { from: req.user._id, to: targetUser._id },
+          { from: targetUser._id, to: req.user._id },
+        ],
+      })
+      if (!friendship) return res.status(403).json({ message: 'This profile is private' })
+    }
+
+    // Only return public lists
+    const lists = await List.find({ ownerId: req.params.userId, isPublic: true }).sort({ createdAt: -1 })
+    res.json(lists)
+  } catch (error) {
+    console.error('getUserLists error:', error)
+    res.status(500).json({ message: error.message })
+  }
+}
+
 module.exports = {
   createList,
   getMyLists,
@@ -176,4 +212,5 @@ module.exports = {
   addGameToList,
   removeGameFromList,
   getPublicLists,
+  getUserLists,
 }

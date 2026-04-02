@@ -67,6 +67,19 @@ const resetPassword = async (req, res) => {
   res.json({ message: 'Password reset successful' })
 }
 
+const updatePrivacy = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { isPublic: Boolean(req.body.isPublic) },
+      { new: true }
+    )
+    res.json({ isPublic: user.isPublic })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error updating privacy' })
+  }
+}
+
 const deleteAccount = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.user._id)
@@ -76,4 +89,4 @@ const deleteAccount = async (req, res) => {
   }
 }
 
-module.exports = { registerUser, loginUser, getProfile, updateProfile, forgotPassword, resetPassword, deleteAccount }
+module.exports = { registerUser, loginUser, getProfile, updateProfile, updatePrivacy, forgotPassword, resetPassword, deleteAccount }
