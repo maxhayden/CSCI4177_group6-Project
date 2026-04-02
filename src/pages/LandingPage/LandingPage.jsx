@@ -13,7 +13,9 @@ import {
   FaTrophy,
   FaChartLine,
   FaSearch,
+  FaBookOpen,
 } from 'react-icons/fa'
+import { useAuth } from '../../context/AuthContext'
 import './LandingPage.css'
 
 /* ── Simulated data ─────────────────────────────── */
@@ -133,8 +135,139 @@ function StatItem({ value, suffix, label, icon: Icon, started }) {
   )
 }
 
+/* ── Quick-action cards for logged-in home ──────── */
+const QUICK_ACTIONS = [
+  {
+    icon: FaSearch,
+    label: 'Discover Games',
+    desc: 'Browse and search thousands of titles.',
+    to: '/search',
+    color: 'purple',
+  },
+  {
+    icon: FaList,
+    label: 'My Lists',
+    desc: 'Organise your games into custom lists.',
+    to: '/lists',
+    color: 'cyan',
+  },
+  {
+    icon: FaHeart,
+    label: 'Wishlist',
+    desc: 'Games you want to play next.',
+    to: '/wishlist',
+    color: 'purple',
+  },
+  {
+    icon: FaUsers,
+    label: 'Friends',
+    desc: 'See what your friends are playing.',
+    to: '/friends',
+    color: 'cyan',
+  },
+  {
+    icon: FaBookOpen,
+    label: 'GameLog',
+    desc: 'Log sessions and track playtime.',
+    to: '/dashboard',
+    color: 'purple',
+  },
+]
+
+/* ── Logged-in home ─────────────────────────────── */
+function LoggedInHome({ username }) {
+  return (
+    <>
+      {/* Welcome hero */}
+      <section className="home-hero" aria-labelledby="home-hero-heading">
+        <div className="hero__bg-orb hero__bg-orb--1" aria-hidden="true" />
+        <div className="hero__bg-orb hero__bg-orb--2" aria-hidden="true" />
+        <div className="container home-hero__inner">
+          <div className="home-hero__text">
+            <span className="badge home-hero__badge">
+              <FaFire aria-hidden="true" /> Welcome back
+            </span>
+            <h1 id="home-hero-heading" className="home-hero__heading">
+              Hey, <span className="hero__heading-accent">{username}</span>!
+            </h1>
+            <p className="hero__subtext">
+              Pick up where you left off — discover new games, log your sessions,
+              or catch up with your friends.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick actions */}
+      <section className="section home-actions-section" aria-labelledby="home-actions-heading">
+        <div className="container">
+          <h2 id="home-actions-heading" className="section-title" style={{ textAlign: 'left', fontSize: 'clamp(1.4rem, 3vw, 2rem)' }}>
+            Quick Actions
+          </h2>
+          <div className="home-actions-grid">
+            {QUICK_ACTIONS.map(({ icon: Icon, label, desc, to, color }) => (
+              <Link key={label} to={to} className={`home-action-card home-action-card--${color}`} aria-label={label}>
+                <div className={`home-action-card__icon home-action-card__icon--${color}`} aria-hidden="true">
+                  <Icon />
+                </div>
+                <h3 className="home-action-card__title">{label}</h3>
+                <p className="home-action-card__desc">{desc}</p>
+                <span className="home-action-card__arrow" aria-hidden="true">
+                  <FaArrowRight />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Top games carousel — same as marketing page */}
+      <section id="top-games" className="section top-games-section" aria-labelledby="topgames-heading2">
+        <div className="container">
+          <div className="section-tag">
+            <span className="badge">
+              <FaFire aria-hidden="true" /> Community Picks
+            </span>
+          </div>
+          <h2 id="topgames-heading2" className="section-title">
+            Top Rated This Week
+          </h2>
+          <p className="section-subtitle">
+            Discover what the Game Deck community is loving right now.
+          </p>
+        </div>
+        <div className="top-games-scroll" role="list" aria-label="Top rated games this week">
+          <div className="top-games-track">
+            {TOP_GAMES.map((game, i) => (
+              <article key={game.title} className="game-card" role="listitem">
+                <div className="game-card__rank" aria-label={`Rank ${i + 1}`}>#{i + 1}</div>
+                <div className="game-card__cover" aria-hidden="true">
+                  <div className="game-card__cover-placeholder"><FaGamepad /></div>
+                </div>
+                <div className="game-card__info">
+                  <h3 className="game-card__title">{game.title}</h3>
+                  <p className="game-card__genre">{game.genre}</p>
+                  <div className="game-card__meta">
+                    <span className="game-card__rating" aria-label={`Rating: ${game.rating} out of 10`}>
+                      <FaStar aria-hidden="true" /> {game.rating}
+                    </span>
+                    <span className="game-card__hours" aria-label={`Completion time: ${game.hours}`}>
+                      <FaClock aria-hidden="true" /> {game.hours}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
 /* ── Main component ─────────────────────────────── */
 export default function LandingPage() {
+  const { user } = useAuth()
   const statsRef = useRef(null)
   const [statsVisible, setStatsVisible] = useState(false)
 
@@ -146,6 +279,8 @@ export default function LandingPage() {
     if (statsRef.current) observer.observe(statsRef.current)
     return () => observer.disconnect()
   }, [])
+
+  if (user) return <LoggedInHome username={user.username || 'Player'} />
 
   return (
     <>

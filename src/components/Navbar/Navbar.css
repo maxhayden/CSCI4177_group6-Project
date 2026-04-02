@@ -92,6 +92,95 @@
   background: var(--color-accent-cyan);
 }
 
+/* Dropdown */
+.navbar__dropdown {
+  position: relative;
+}
+
+.navbar__dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navbar__dropdown-chevron {
+  font-size: 0.65rem;
+  transition: transform var(--transition-fast);
+  opacity: 0.7;
+}
+
+.navbar__dropdown-chevron--open {
+  transform: rotate(180deg);
+}
+
+.navbar__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(16, 16, 32, 0.97);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2);
+  min-width: 170px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 200;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: dropdownFadeIn 0.15s ease both;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.navbar__dropdown-item {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.navbar__dropdown-item:hover {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.navbar__dropdown-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-1) 0;
+}
+
+/* Mobile section label */
+.navbar__mobile-section-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: var(--space-3) var(--space-4) var(--space-1);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-2);
+}
+
+.navbar__mobile-link--sub {
+  padding-left: var(--space-6);
+  font-size: var(--text-base);
+  opacity: 0.85;
+}
+
 /* Desktop actions */
 .navbar__actions {
   display: flex;
