@@ -184,7 +184,7 @@ export default function FriendRequestsPage() {
                 {req.from.username[0].toUpperCase()}
               </div>
 
-              <span className="friend-username">{req.from.username}</span>
+              <Link to={`/user/${req.from.username}`} className="friend-username">{req.from.username}</Link>
 
               <div className="request-actions">
                 <button className="btn btn-primary btn-sm" onClick={() => handleAccept(req._id)}>

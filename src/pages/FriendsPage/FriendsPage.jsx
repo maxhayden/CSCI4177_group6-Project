@@ -68,7 +68,7 @@ export default function FriendsPage() {
                 {friend.username[0].toUpperCase()}
               </div>
 
-              <span className="friend-username">{friend.username}</span>
+              <Link to={`/user/${friend.username}`} className="friend-username">{friend.username}</Link>
 
               <button
                 className="btn btn-outline btn-sm"
